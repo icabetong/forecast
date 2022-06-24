@@ -15,7 +15,7 @@
 <template>
   <div class="max-w-screen-md md:max-w-screen-lg h-full flex flex-col mx-auto items-center justify-center">
     <h1 class="block text-gray-700 text-2xl font-bold mb-2">Forecast</h1>
-    <form class="w-full flex flex-col items-center justify-center">
+    <form v-on:submit.prevent="navigate" class="w-full flex flex-col items-center justify-center">
       <fieldset class="my-4 w-3/4 lg:w-2/4">
         <input 
           v-model="location"
