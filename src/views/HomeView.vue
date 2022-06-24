@@ -6,7 +6,9 @@
   const location = ref('')
 
   const navigate = () => {
-    router.push({ path: '/weather', query: { location: location.value } })
+    const city = location.value
+    if (city.length > 0)
+      router.push({ path: '/weather', query: { location: location.value } })
   }
 </script>
 
@@ -22,7 +24,13 @@
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
       </fieldset>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" v-on:click="navigate" type="button">Get Forecast</button>
+      <button
+        v-on:click="navigate"
+        :disabled="location.length <= 0"
+        type="button"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-blue-100">
+        Get Forecast
+      </button>
     </form>
   </div>
 </template>
