@@ -23,21 +23,28 @@
 </script>
 
 <template>
-  <div class="max-w-screen-md md:max-w-screen-lg h-full flex flex-col items-center justify-baseline py-4 relative mb-8 mx-4 md:mx-auto">
+  <div class="max-w-screen-md md:max-w-screen-lg h-full py-4 relative mb-8 mx-4 lg:mx-auto">
     <button class="absolute left-0 shadow bg-blue-500 px-4 py-2 rounded text-white font-semibold" v-on:click="onBack">Back</button>
-    <location-card v-if="forecast" :name="forecast?.city.name" :country="forecast?.city.country" :sunrise="forecast.city.sunrise" :sunset="forecast?.city.sunset" :timezone="forecast.city.timezone"/>
-    <div class="mt-8 mb-2">Forecast for the next 4 days:</div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 grid-rows-2 gap-4 flex-1 w-full">
-      <forecast-card
-        v-if="forecast" 
-        v-for="weather in forecast?.list" 
-        :key="weather.dt_text"
-        :temp="weather.main.temp"
-        :temp-max="weather.main.temp_max"
-        :temp-min="weather.main.temp_min"
-        :temp-feel="weather.main.feels_like"
-        :humidity="weather.main.humidity"
-        :pressure="weather.main.pressure"/>
+    <div class="flex flex-col items-center justify-center h-full">
+      <div v-if="forecast != null">
+        <location-card v-if="forecast != null" :name="forecast?.city.name" :country="forecast?.city.country" :sunrise="forecast.city.sunrise" :sunset="forecast?.city.sunset" :timezone="forecast.city.timezone"/>
+        <div class="mt-8 mb-2">Forecast for the next 4 days:</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 grid-rows-2 gap-4 flex-1 w-full">
+          <forecast-card
+            v-if="forecast" 
+            v-for="weather in forecast?.list" 
+            :key="weather.dt_text"
+            :temp="weather.main.temp"
+            :temp-max="weather.main.temp_max"
+            :temp-min="weather.main.temp_min"
+            :temp-feel="weather.main.feels_like"
+            :humidity="weather.main.humidity"
+            :pressure="weather.main.pressure"/>
+        </div>
+      </div>
+      <div v-if="forecast == null" class="text-center text-3xl font-bold">
+        Location cannot be found
+      </div>
     </div>
   </div>
 </template>
